@@ -93,8 +93,8 @@ var jsAppHtml = `<!DOCTYPE html>
           var nd = widget;
           if (typeof widget === 'string') {
               nd = document.createTextNode(widget);
-          } else if (typeof widget.toDom === 'function')  {
-              nd = widget.toDom();
+          } else if (typeof widget.render === 'function')  {
+              nd = widget.render();
           }
           document.body.appendChild(nd);
       });

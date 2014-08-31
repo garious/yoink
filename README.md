@@ -35,7 +35,7 @@ The 'jsok' directory contains a Go library that allows you to easily unit-test
 Yoink modules.
 
 Instead of passing 'yoink.define()' a DOM element, you also have the option to
-pass it an object that implements a 'toDom()' method, which returns the DOM
+pass it an object that implements a 'render()' method, which returns the DOM
 element to display.  This is usually preferred because it allows you to test
 the guts of your application outside the browser.  The Yoink Framework comes
 with an adapter for Node.js called 'yoink-adapter.js' and a simple assertion
