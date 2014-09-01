@@ -220,6 +220,19 @@ var YOINK = (function () {
         return {path: p, params: ps, interpreter: f, onError: url.onError};
     }
 
+    function parseQueryString(query) {
+        var pl = /\+/g;
+        function decode(s) {
+            return decodeURIComponent(s.replace(pl, " "));
+        }
+        var match;
+        var search = /([^&=]+)=?([^&]*)/g;
+        var urlParams = {};
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+        return urlParams;
+    }
+
     function mkGetResources(base, cache, moduleCache, interpreters) {
 
         function getResources(urls, callback) {
@@ -267,6 +280,7 @@ var YOINK = (function () {
     }
 
     return {
+        parseQueryString: parseQueryString,
         setDebugLevel: setDebugLevel,
         require: require,
         resourceLoader: resourceLoader,
