@@ -37,7 +37,7 @@ var YOINK = (function () {
 
     function jsInterpreter(text, require, callback, params) {
         // Note: Chrome/v8 requires the outer parentheses.  Firefox/spidermonkey does fine without.
-        var f_str = '(function (yoink) {"use strict";' + text + '})';
+        var f_str = '(function (yoink, require, define) {"use strict";' + text + '})';
         var f;
         if (typeof window !== 'undefined' && window.execScript) {
           // Special handling for Internet Explorer
@@ -53,7 +53,7 @@ var YOINK = (function () {
             define: callback,
             require: require,
             params: params
-        });
+        }, require, callback);
     }
 
     var defaultInterpreters = {

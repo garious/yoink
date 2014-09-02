@@ -38,7 +38,7 @@ function loadFile(url, contents) {
 // Basic tests of YOINK.require()
 assert.equal(loadFile('a', '42'), '42');
 assert.equal(loadFile('a.json', '42'), 42);
-assert.equal(loadFile('a.js', 'yoink.define(42);'), 42);
+assert.equal(loadFile('a.js', 'define(42);'), 42);
 
 console.log('passed!');
 
