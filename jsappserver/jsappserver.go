@@ -44,11 +44,11 @@ func mkPage(w http.ResponseWriter) error {
 }
 
 func serveURL(p string, w http.ResponseWriter, r *http.Request) error {
-	if exists(p + "index.js") || exists(p + ".js") {
-		return mkPage(w)
-	} else if exists(p) {
+	if exists(p) {
 		http.ServeFile(w, r, p)
 		return nil
+	} else if exists(p + "index.js") || exists(p + ".js") {
+		return mkPage(w)
 	} else {
 		http.NotFound(w, r)
 		return nil
