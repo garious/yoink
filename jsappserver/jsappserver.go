@@ -65,8 +65,8 @@ func (h *JsAppServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func exists(p string) bool {
 
-	_, err := os.Stat(p)
-	return err == nil
+	finfo, err := os.Stat(p)
+	return err == nil && !finfo.IsDir()
 }
 
 var jsAppHtml = `<!DOCTYPE html>
