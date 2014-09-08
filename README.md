@@ -25,7 +25,7 @@ JsAppServer is a Go package for building web servers that use Yoink.  When the
 user requests a URL, JsAppServer looks for a resource with the same name and a
 '.js' extension.  If it finds one, the server wraps the JavaScript with an HTML
 page that uses yoink.js to load and run that JavaScript file.  The JavaScript
-file then calls 'yoink.define()' with a DOM element to display in the HTML body.
+file then calls `define()` with a DOM element to display in the HTML body.
 
 
 jsok
@@ -34,7 +34,7 @@ jsok
 The 'jsok' directory contains a Go library that allows you to easily unit-test
 Yoink modules.
 
-Instead of passing 'yoink.define()' a DOM element, you also have the option to
+Instead of passing `define()` a DOM element, you also have the option to
 pass it an object that implements a 'render()' method, which returns the DOM
 element to display.  This is usually preferred because it allows you to test
 the guts of your application outside the browser.  The Yoink Framework comes
@@ -47,7 +47,7 @@ for your JavaScript.  For example:
 ```
 
 ```javascript
-    yoink.define({
+    define({
        fortyTwo: function() {return 42;}
     });
 ```
@@ -57,9 +57,9 @@ for your JavaScript.  For example:
 ```
 
 ```javascript
-    yoink.require(['assert.js', 'mylib.js'], function(assert, mylib) {
+    require(['assert.js', 'mylib.js'], function(assert, mylib) {
         assert.assertEq(mylib.fortyTwo(), 42);
-        yoink.define('passed!');
+        define('passed!');
     });
 ```
 
