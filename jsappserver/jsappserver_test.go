@@ -9,7 +9,7 @@ import (
 )
 
 func TestGetPages(t *testing.T) {
-	getJsPage(t, "/stdlib", "../stdlib", "/stdlib/tag_test", 200)
+	getJsPage(t, "/stdlib", "../stdlib", "/stdlib/dom_test", 200)
 	getJsPage(t, "/stdlib", "../stdlib", "/stdlib/", 200) // contains index.js
 	getJsPage(t, "/stdlib", "../stdlib", "/stdlib", 200)  // contains index.js
 	getJsPage(t, "/stdlib", "../stdlib", "/bogus", 404)

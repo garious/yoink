@@ -13,7 +13,7 @@ examples
 
 Each subdirectory of the 'examples' directory contains a standalone webserver
 in 'server.go' and client code in its 'index.js'.  'hello' is a minimal webpage
-using Yoink.  'canvas' introduces the fundamental 'stdlib' library 'tag.js'.
+using Yoink.  'canvas' introduces the fundamental 'stdlib' library 'dom.js'.
 Finally, the 'layout' example shows off 'layout.js' and how a more typical Yoink
 webpage is composed.
 
@@ -79,7 +79,7 @@ stdlib
 ----
 
 The 'stdlib' directory contains client-side JavaScript libraries.  observable.js is
-a general library for reactive programming in JavaScript.  tag.js applies the
+a general library for reactive programming in JavaScript.  dom.js applies the
 reactive programming model to HTML.
 
 
