@@ -13,8 +13,10 @@ import (
 // Lint the source file.
 func JsLint(p string) error {
 	out, err := exec.Command("jsl", "-nologo", "-nofilelisting", "-nosummary", "-output-format", "__FILE__:__LINE__:__COL__: __ERROR__", "-process", p).Output()
-	if err != nil {
+        if _, ok := err.(*exec.ExitError); ok {
 		return errors.New(string(out))
+	} else if err != nil {
+		return err
 	}
 	return nil
 }
@@ -38,7 +40,9 @@ func JsExecWithModuleMap(p string, modMap map[string]string) error {
 		"--modspec",
 		string(jsonModMap),
 	        p).CombinedOutput()
-	if err != nil {
+        if _, ok := err.(*exec.ExitError); ok {
+		return errors.New(string(out))
+	} else if err != nil {
 		return errors.New(string(out))
 	}
 	return nil
