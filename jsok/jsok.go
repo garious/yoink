@@ -4,16 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"os/exec"
-        "path"
-        "path/filepath"
-        "runtime"
+	"path"
+	"path/filepath"
+	"runtime"
 )
-
 
 // Lint the source file.
 func JsLint(p string) error {
 	out, err := exec.Command("jsl", "-nologo", "-nofilelisting", "-nosummary", "-output-format", "__FILE__:__LINE__:__COL__: __ERROR__", "-process", p).Output()
-        if _, ok := err.(*exec.ExitError); ok {
+	if _, ok := err.(*exec.ExitError); ok {
 		return errors.New(string(out))
 	} else if err != nil {
 		return err
@@ -26,8 +25,8 @@ func JsExec(p string) error {
 }
 
 func JsExecWithModuleMap(p string, modMap map[string]string) error {
-        _, filename, _, _ := runtime.Caller(0)
-        thisDir := path.Dir(filename)
+	_, filename, _, _ := runtime.Caller(0)
+	thisDir := path.Dir(filename)
 
 	jsonModMap, err := json.Marshal(modMap)
 	if err != nil {
@@ -39,8 +38,8 @@ func JsExecWithModuleMap(p string, modMap map[string]string) error {
 		filepath.Join(thisDir, "yoink-adapter.js"),
 		"--modspec",
 		string(jsonModMap),
-	        p).CombinedOutput()
-        if _, ok := err.(*exec.ExitError); ok {
+		p).CombinedOutput()
+	if _, ok := err.(*exec.ExitError); ok {
 		return errors.New(string(out))
 	} else if err != nil {
 		return errors.New(string(out))

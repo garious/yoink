@@ -1,10 +1,10 @@
 package jsok
 
 import (
-	"path/filepath"
-	"testing"
 	"log"
 	"os"
+	"path/filepath"
+	"testing"
 )
 
 func TestLint(t *testing.T) {
@@ -40,4 +40,3 @@ func handleJsExec(path string, info os.FileInfo, err error) error {
 	}
 	return nil
 }
-
