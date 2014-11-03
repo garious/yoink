@@ -1,3 +1,5 @@
+//go:generate go-bindata -o yoink.js.go -pkg $GOPACKAGE ../loader/
+
 package jsappserver
 
 import (
