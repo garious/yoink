@@ -1,4 +1,4 @@
-//go:generate go-bindata -o yoink.js.go -pkg $GOPACKAGE ../loader/
+//go:generate go-bindata -ignore=README.md -ignore=yoink_test.js -o yoink.js.go -pkg $GOPACKAGE ../loader/
 
 package jsappserver
 
