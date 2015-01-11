@@ -1,4 +1,4 @@
-//go:generate go-bindata -ignore=README.md -ignore=yoink_test.js -o yoink.js.go -pkg $GOPACKAGE ../loader/
+//go:generate go-bindata -ignore=.*.md -ignore=.*_test.js -o=loader.go -pkg=$GOPACKAGE -prefix=../loader/ ../loader/
 
 package jsappserver
 
@@ -34,7 +34,7 @@ func mkPage(w http.ResponseWriter) error {
 	templ := template.New("bar")
 	parsedTempl, _ := templ.Parse(jsAppHtml)
 
-	yoinkBytes, err := Asset("../loader/yoink.js")
+	yoinkBytes, err := Asset("yoink.js")
 	if err != nil {
 		return err
 	}
