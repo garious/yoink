@@ -95,6 +95,11 @@ var jsAppHtml = `<!DOCTYPE html>
                   nd = document.createTextNode(widget);
               } else if (typeof widget.render === 'function')  {
                   nd = widget.render();
+                  if (typeof nd.get == 'function') {
+                      var obs = nd;
+                      setInterval(function(){obs.get();}, 30);
+                      nd = obs.get();
+                  }
               }
               document.body.appendChild(nd);
           });
