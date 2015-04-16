@@ -1,19 +1,17 @@
-//go:generate go-bindata -ignore=.*.md -ignore=.*_test.js -o=loader.go -pkg=$GOPACKAGE -prefix=../loader/ ../loader/
+//go:generate go-bindata -ignore=.*.md -ignore=.*.html -ignore=index.js -ignore=.*_test.js -o=loader.go -pkg=$GOPACKAGE -prefix=../loader/ ../loader/
 
 package jsappserver
 
 import (
 	"html/template"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 )
 
 type Page struct {
-	Filename string
-	Params   url.Values
 	Yoink    template.JS
+	Render   template.JS
 }
 
 type JsAppServer struct {
@@ -39,7 +37,15 @@ func mkPage(w http.ResponseWriter) error {
 		return err
 	}
 
-	page := &Page{Yoink: template.JS(yoinkBytes)}
+	renderBytes, err := Asset("render.js")
+	if err != nil {
+		return err
+	}
+
+	page := &Page{
+		Yoink: template.JS(yoinkBytes),
+		Render: template.JS(renderBytes),
+	}
 
 	w.Header().Set("Content-Type", "text/html")
 	return parsedTempl.Execute(w, page)
@@ -76,34 +82,6 @@ var jsAppHtml = `<!DOCTYPE html>
   <head></head>
   <body style="margin: 0; padding: 0">
     <script>{{.Yoink}}</script>
-    <script>
-      (function() {
-          var path = window.location.pathname;
-          if (path === '/') {
-              path = '/index';
-          }
-          path += '.js';
-          YOINK.setDebugLevel(1);
-          YOINK.resourceLoader('', {}, window.PRELOADED_MODULES).getResources([
-              {path: path, params: YOINK.parseQueryString(window.location.search.substring(1))}
-          ], function(widget) {
-              if (widget.getTitle) {
-                  document.title = widget.getTitle();
-              }
-              var nd = widget;
-              if (typeof widget === 'string') {
-                  nd = document.createTextNode(widget);
-              } else if (typeof widget.render === 'function')  {
-                  nd = widget.render();
-                  if (typeof nd.get == 'function') {
-                      var obs = nd;
-                      setInterval(function(){obs.get();}, 30);
-                      nd = obs.get();
-                  }
-              }
-              document.body.appendChild(nd);
-          });
-      })();
-    </script>
+    <script>{{.Render}}</script>
   </body>
 </html>`
